@@ -10,7 +10,6 @@
 ![R-imgs from qiniu][7]
 ![R-imgs from qiniu][8]
 ![R-imgs from qiniu][9]
-![R-imgs from qiniu][10]
 
 [1]:http://ooccr4mhp.bkt.clouddn.com/imgs/img1.png
 [2]:http://ooccr4mhp.bkt.clouddn.com/imgs/img2.png
@@ -21,4 +20,3 @@
 [7]:http://ooccr4mhp.bkt.clouddn.com/imgs/img7.png
 [8]:http://ooccr4mhp.bkt.clouddn.com/imgs/img8.png
 [9]:http://ooccr4mhp.bkt.clouddn.com/imgs/img9.png
-[10]:http://ooccr4mhp.bkt.clouddn.com/imgs/img001.png
