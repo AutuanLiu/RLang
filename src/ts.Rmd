@@ -1,0 +1,90 @@
+---
+title: "MSwM包的研究笔记"
+output: html_notebook
+date: "2017/07/11"
+author: "autuanliu"
+---
+## R进行时间序列分析
+**通过 ts() 进行存储为时间序列**
+```{r}
+setwd("~/文档/RWork")
+```
+* 调用格式
+```r
+myseries <- ts(data, start=, end=, frequency=)
+```
+* 含义
+    * frequency 代表每个单位时间所包含的观测值数量
+    * frequency = 1 代表年度数据
+    * frequency = 12 代表月度数据
+    * frequency = 4 对应季度数据
+
+* 从2003年1月开始的，两年内的月度销售数据
+```{r}
+sales <- c(18, 33, 41, 7, 34, 35, 24, 25, 24, 21, 25,20, 22, 31, 40, 29, 25, 21, 22, 54, 31, 25, 26, 35)
+tsales <- ts(sales, start = c(2003, 1), frequency = 12)
+plot(tsales)
+```
+* start(), end(), frequency()用于获取信息
+```{r}
+end(tsales)
+```
+* window()用于生成子集
+```{r}
+window(tsales, start = c(2003, 7))
+```
+## 时间序列的平滑化和季节性分解
+* TTR, zoo, forecast 包
+```{r}
+data("AirPassengers")
+plot(AirPassengers)
+lAirPassengers <- log(AirPassengers)
+plot(lAirPassengers, ylab = "log(Air)")
+```
+* 分解时间序列
+```{r}
+fit <- stl(lAirPassengers, s.window = "period")
+plot(fit)
+```
+* 观测值的各个分解项的值
+```{r}
+fit$time.series
+```
+## 简单移动平均
+forecast包的ma()函数可以做简单的移动平均
+```{r}
+library(forecast)
+data(Nile)
+opar <- par(no.readonly=TRUE)
+par(mfrow = c(2, 2))
+ylim = c(min(Nile), max(Nile))
+plot(Nile, main = "Raw time series")
+plot(ma(Nile, 3), main = "simple Moving Averages(k=3)", ylim = ylim)
+plot(ma(Nile, 7), main = "simple Moving Averages(k=7)", ylim = ylim)
+plot(ma(Nile, 15), main = "simple Moving Averages(k=15)", ylim = ylim)
+par(opar)
+```
+* plot
+```{r}
+monthplot(AirPassengers, xlab="", ylab="")
+```
+## ARIMA预测模型
+在ARIMA模型中，预测值表示为由最近的真实值和最近的预测误差组成的线性函数
+* 滞后阶数lag：我们向后追溯的观测值的数量，lag=1，表示原来的数据均向左移动一个时间单位，lag=2则移动2个时间单位等
+* $AC_1$就是一阶滞后序列和0阶滞后序列之间的相关性，由所有AC构成的图成为ACF图，用来评估模型的拟合效果，stats包中的acf()可以来生成ACF图
+* 偏自相关是$Y_t$和$Y_{t-k}$之间的相关性
+
+**ARIMA主要用来拟合具有平稳性的时间序列，在一个平稳的时间序列中，序列的统计特性并不会随着时间的改变而发生任何变化**
+
+一般拟合ARIMA都需要交换序列的值以保证方差为常数
+
+非平稳序列可以通过差分的方法变为平稳序列
+
+q阶移动平均模型中，时序的每个值都可以通过之前的q个残差的线性组合来表示
+
+ARMA(p, q)的每个观测值都可以用过去的p个观测值和q个残差的线性组合来表示
+
+ARIMA(p, d, q)模型意味着时序被差分了d次，且序列中的每个观测值都是过去的p个观测值和q个残差的线性组合表示的。预测是“无误差的”或者完整的，来实现最终的预测
+
+## 具体步骤
+验证序列的平稳性

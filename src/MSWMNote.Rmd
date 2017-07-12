@@ -3,7 +3,12 @@ title: "MSwM包的研究笔记"
 output: html_notebook
 ---
 
-* 协变量
+$$ y_t=\begin{cases}
+8 + 2 x_t+\epsilon_t^{(1)}\qquad \epsilon_t^{(1)}\sim N(0, 1)\qquad t=101:150, 181:250 \\
+1 + 0.9 y_{t-1}+\epsilon_t^{(2)} \qquad \epsilon_t^{(2)}\sim N(0, 0.5)\qquad t=1:100, 151:180, 251:300
+\end{cases} $$
+
+* 协变量 
 
 协变量：在实验的设计中，协变量是一个独立变量（解释变量），不为实验者所操纵，但仍影响实验结果
 
@@ -107,16 +112,23 @@ plot(mod.mswm)
 **P是“拒绝原假设时犯错误概率”又或者说是“如果你拒绝掉原假设实际上是在冤枉好人的概率”**
 
 ```{r}
+# data extract
+conditional.residuals <- msmResid(mod.mswm)
+regime.residuals <- msmResid(mod.mswm, c(1, 2))
+regime.residuals <- t(regime.residuals)
+```
+
+```{r}
 x <- c(0:300)
 y <- rep(0, 301)
 plot(y~x, type = "l", col = 1)
-axis(1)
+# axis(1)
 par(new = T)
 plot(conditional.residuals, type ="l", col = 1)
-axis(2)
+# axis(2)
 par(new = T)
 plot(regime.residuals[1, ], type = "l", col = "red")
-axis(2)
+# axis(2)
 par(new = T)
 plot(regime.residuals[2, ], type = "l", col = "green")
 ```
