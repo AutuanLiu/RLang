@@ -1,0 +1,5 @@
+library(MSwM)
+data(example)
+mod=lm(y~x, example)
+mod.mswm = msmFit(mod,k=2,p=1,sw=c(T,T,T,T),control=list(parallel=F))
+plotProb(mod.mswm, which = 1)

@@ -1,0 +1,44 @@
+---
+title: "MSwM包的研究笔记"
+output: html_notebook
+date: "2017/07/11"
+author: "autuanliu"
+---
+
+T
+```{r}
+library(MSwM)
+data("traffic")
+model = glm(NDead~Temp+Prec, traffic, family = "poisson")
+summary(model)
+```
+
+```{r}
+tstraf = ts(traffic)
+plot(tstraf[, 2:4])
+```
+
+```{r}
+m1 = msmFit(model, k = 2, sw = c(T, T, T), family = "poisson", control = list(parallel = F))
+summary(m1)
+```
+
+```{r}
+intervals(m1)
+```
+
+```{r}
+plotProb(m1, which = 1)
+```
+
+```{r}
+plotProb(m1, which = 2)
+```
+
+```{r}
+plotReg(m1, expl = "Prec")
+```
+
+```{r}
+plot(m1)
+```

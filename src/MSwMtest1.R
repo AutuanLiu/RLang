@@ -1,0 +1,8 @@
+library(MSwM)
+data("traffic")
+model = glm(NDead~Temp+Prec, traffic, family = "poisson")
+summary(model)
+tstraf = ts(traffic)
+#plot(tstraf[, 2:4])
+m1 = msmFit(model, k = 2, sw = c(T, T, T), family = "poisson", control = list(parallel = F))
+plotProb(m1, which = 1)
