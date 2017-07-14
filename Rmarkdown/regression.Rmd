@@ -4,7 +4,7 @@ output: html_notebook
 date: "2017/07/11"
 author: "autuanliu"
 ---
-回归分析是统计学的的核心
+回归分析是统计学的的核心  
 
 回归：用一个或者多个预测变量（自变量或解释变量）来预测响应变量（因变量，效标变量或结果变量）的方法
 
@@ -41,11 +41,12 @@ OLS回归是通过预测变量的加权和来预测量化的因变量，其中�
 ～ | 分隔符，左边为响应变量，右边为解释变量
 + | 分割预测变量
 ： | 表示预测变量的交互项（交叉乘积）y~x+z+x:z
-* |  表示所有可能交互项 y~x*z*w为y~x+z+w+x:z+x:w+z:w+x:z:w
+* |  表示所有可能交互项 y~x*z*w=y~x+z+w+x:z+x:w+z:w+x:z:w
 ^ | 表示交互项达到某个次数y~(x+z+w)^2=y~x+z+w+x:z+x:w+z:w
 . | 表示除因变量外的所有变量，y~.=y~x+z+w
 - | 表示从等式中移除某个项
 -1 | 删除截距项
+I() | 从算数的角度来解释，y~x+I((z+w)^2)=y~x+h,h是z和w的平方和
 function | 可以在表达式中使用函数 ，log(y)~x+z+w
 
 * 其他函数
@@ -63,3 +64,105 @@ plot() | 生成评价拟合模型的诊断图
 predict() | 预测响应变量
 
 ## 简单线性回归
+```{r}
+data("women")
+fit <- lm(weight~height, data = women)
+summary(fit)
+fitted(fit) # 预测值
+residuals(fit) # 残差值
+plot(women$height, women$weight, xlab = "Height", ylab = "Weight")
+abline(fit) # 在图形上增加拟合曲线
+# Weight = -87.52 + 3.45 * Height
+# Pr(>|t|) 表示回归系数是否显著为 0 
+```
+## 多项式回归
+```{r}
+fit2 <- lm(weight ~ height + I(height^2), data = women[-c(13, 15)])
+summary(fit2)
+plot(women$height, women$weight, xlab = "Height", ylab = "Weight")
+par(mfrow = c(2, 2))
+plot(fit2) # 在图形上增加拟合曲线
+```
+#### 二元关系图
+```{r}
+library(car)
+scatterplot(weight~height, data = women, spread = FALSE, smoother.args = list(lty = 2), pch = 19)
+```
+## 多元线性回归
+```{r}
+states <- as.data.frame(state.x77[, c("Murder", "Population", "Illiteracy", "Income", "Frost")])
+# 检查相关性 cor
+cor(states)
+library(car)
+scatterplotMatrix(states, spread = FALSE, smoother.args = list(lty = 2), main = "Scatter plot matrix")
+```
+
+
+```{r}
+# fit line
+fit4 <- lm(Murder ~ Population + Illiteracy + Income + Frost, data = states)
+summary(fit4)
+par(mfrow = c(2, 2))
+plot(fit4)
+library(car) # import package car
+# qqplot(fit4, labels = row.names(states), id.method = "identify", simulate = TRUE, main = "Q-Q plot")
+```
+
+## 含交叉项的回归
+```{r}
+fit <- lm(mpg ~ hp + wt + hp:wt, data = mtcars)
+summary(fit)
+# 图形演示交叉项的影响
+library(effects)
+plot(effect("hp:wt", fit, , list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
+confint(fit) # confidence interval
+```
+## 回归诊断
+```{r}
+fit3 <- lm(weight ~ height, data = women[-c(13, 15)]) # remove point 13, 15
+par(mfrow = c(2, 2))
+plot(fit)
+```
+* 解释
+    * 若满足正态性，则QQ图应该成45°角的直线上
+    * 若因变量与自变量是线性关系则残差与预测值就没有任何的关联
+    * 若满足同方差，则位置尺度图应该满足**水平线周围的点应该随机分布**
+    * 残差与杠杆图：单个观测点的信息
+        * 离群点： 预测效果不佳
+        * 高杠杆值： 异常的预测变量值
+        * 強影响点 ： 对模型参数的估计影响过大
+
+**car 包提供了更多的回归诊断方法**
+## t 检验
+对两个组进行比较：**接受某种新药物治疗的患者是否较使用某种现有药物的患者表现出更大程度的改善？*
+### 独立样本的 t 检验
+`t.test(y~x, data)`
+
+# y 是数值变量， x是一个二分变量
+
+`t.test(y1, y2)`
+
+# y1, y2 为数值变量，各组的结果变量
+```R
+var.equal = TRUE # 方差是否相等
+alternative = “less” # 单边检验
+```
+e.g.
+```{r}
+library(MASS)
+t.test(Prob~So, data = UScrime)
+```
+### 非独立样本的 t 检验
+```{r}
+sapply(UScrime[c("U1", "U2")], function(x)(c(mean = mean(x), sd = sd(x))))
+with(UScrime, t.test(U1, U2, paired = TRUE))
+```
+### 多于两组的情况
+如果可以假设数是从正态总体中分离的，那么可以使用anova函数
+
+## 异常观测值
+1. 离群点
+离群点指的是预测效果不佳的点
+2. 高杠杆值点
+
+3. 强影响点
