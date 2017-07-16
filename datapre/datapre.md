@@ -28,9 +28,18 @@ match.sh 脚本用于从 `*csv` 文件中提取出有 ABP 记录的文件夹名
 
 [match.sh下载][5]
 
+* 复合代码
+
+[execute.sh下载][6]
+
+> 此代码可以批执行`extract.sh`和`match.sh`，一步到位，并输出最终的结果
+
+> 请保证 3 个 shell 脚本存储在同一个文件夹下。否则，请给对应命令设置存储目录
+
 
 [1]:https://physionet.org/physiobank/database/mimic2wdb/matched/
 [2]:https://physionet.org/faq.shtml
 [3]:https://www.physionet.org/physiotools/wfdb.shtml
-[4]:http://ooccr4mhp.bkt.clouddn.com/shell/extract.sh
-[5]:http://ooccr4mhp.bkt.clouddn.com/shell/match.sh
+[4]:http://ooccr4mhp.bkt.clouddn.com/code/shell/extract.sh
+[5]:http://ooccr4mhp.bkt.clouddn.com/code/shell/match.sh
+[6]:http://ooccr4mhp.bkt.clouddn.com/code/shell/execute.sh
