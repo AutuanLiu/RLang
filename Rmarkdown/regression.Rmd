@@ -162,7 +162,90 @@ with(UScrime, t.test(U1, U2, paired = TRUE))
 
 ## 异常观测值
 1. 离群点
-离群点指的是预测效果不佳的点
+离群点指的是预测效果不佳的点，它们通常有很大的或正或负的残差
+```{r}
+library(car)
+outlierTest(fit)
+```
 2. 高杠杆值点
+由许多的预测变量有关的离群点组合起来的，与响应变量值没有关系
 
+高杠杆值可能是强影响点也可能不是，这主要看他们是否是离群点
 3. 强影响点
+检验强影响点：
+    * cook距离或称D统计量
+
+### 改进措施
+* 删除观测点
+* 变量变换
+* 添加或删除变量
+* 使用其他回归方法
+
+当模型不符合正态性，线性或者同方差性假设时，一个或多个变量的变换通常可以改善或调整模型的效果，如取根式，取对数，取平方等
+
+## 模型选择
+anova函数可以比较两个嵌套模型的拟合优度
+```{r}
+states <- as.data.frame(state.x77[, c("Murder", "Population", "Illiteracy", "Income", "Frost")])
+fit5 <- lm(Murder ~ Population + Illiteracy + Income + Frost, data = states)
+fit6 <- lm(Murder ~ Population + Illiteracy, data = states)
+anova(fit6, fit5)
+```
+* 嵌套模型
+
+即它的一些项完全包含在另一些模型中
+
+AIC 也可以用来比较模型，他考虑了模型的统计拟合度和用来拟合的参数数目。AIC 值较小的模型要优先选择，它说明模型使用较少的参数获得了足够的拟合度，使用 AIC() 函数实现
+
+```{r}
+AIC(fit5, fit6)
+```
+### 变量选择
+从大量候选变量中选择最终的预测变量有：**逐步回归法**， **全子集回归**
+#### 逐步回归法
+模型一次添加或者删除一个变量，知道达到某个判停准则为止
+MASS 包的 stepAIC() 函数可以实现逐步回归模型，依据是AIC准则
+```r
+stepAIC(fit, direction = "backward")
+```
+#### 全子集回归
+所有可能的模型都会被检验
+
+leaps包的 regsubsets()函数，通过$R^$来选择
+
+## 交叉验证
+bootstrap包的crossval()函数可以实现交叉验证
+```{r}
+library(bootstrap)
+
+# function defination
+shrinkage <- function(fit, k = 10) {
+    require(bootstrap)
+    theta.fit <- function(x, y) {
+    lsfit(x, y)
+  }
+  
+    theta.predict <- function(fit, x) {
+    cbind(1, x) %*% fit$coef
+  }
+  
+     x <- fit$model[, 2:ncol(fit$model)]
+     y <- fit$model[, 1]
+
+     result <- crossval(x, y, theta.fit, theta.predict, ngroup = k)
+     r2 <- cor(y, fit$fitted.value)^2
+     r2cv <- cor(y, result$cv.fit)^2
+     cat("Original R-Squre = ", r2, "\n")
+     cat(k, "Fold Cros-Validated R-Squre = ", r2cv, "\n")
+     cat("Change = ", r2 - r2cv, "\n\n")
+}
+
+states <- as.data.frame(state.x77[, c("Murder", "Population", "Illiteracy", "Income", "Frost")])
+fit <- lm(Murder ~ Population + Illiteracy + Income + Frost, data = states)
+shrinkage(fit)
+
+fit1 <- lm(Murder ~ Population + Illiteracy, data = states)
+shrinkage(fit1)
+}
+```
+shrinkage()创建了一个包含预测变量和预测值的矩阵，可以获得初始的R平方以及交叉验证的R平方
