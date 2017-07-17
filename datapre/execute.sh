@@ -7,7 +7,7 @@
 # shell 脚本存储路径设置
 # 请保证 3 个 shell 脚本存储在同一个文件夹下
 # 否则，请给对应命令设置存储目录
-dataDir="/home/autuanliu/文档/RWork/"
+dataDir="$HOME/文档/RWork/"
 cd $dataDir
 
 # 执行数据的提取工作

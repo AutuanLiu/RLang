@@ -6,11 +6,11 @@
 # result：结果保存在与数据对应的文件夹下
 
 # 数据路径设置
-dataDir="/home/autuanliu/文档/My301Work/data/mimic/"
+dataDir="$HOME/文档/My301Work/data/mimic/"
 cd $dataDir
 
 # 为了简化代码，将log文件默认存储在～/下（家目录）
-# ~/即 /home/usr_name/
+# ~/即 /home/usr_name/也即 $HOME 的值
 ls > ~/dir.log
 
 # 为便于对应：输出文件默认为相应的hea文件名，加上.csv后缀
