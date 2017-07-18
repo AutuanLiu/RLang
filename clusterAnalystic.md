@@ -97,3 +97,53 @@ KValue.R
 result.R
 
 ## 划分聚类分析
+观测值被分为 K 组并根据给定的规则改组成最有粘性的类
+
+### K 均值聚类
+
+* 步骤
+    1. 选择 K 个中心点（随机选择 K 行）
+    2. 把每个数据点分派到离它最近的中心点
+    3. 重新计算每类中的点到该类中心点距离的平均值
+    4. 分派每个数据到它最近的中心点
+    5. 重复步骤3， 4 直到所有的观测值不再被分派或是达到最大的迭代次数（Hartigan&Wong）
+
+主要采用Hartigan&Wong的算法，这种算法是把观测值分为 K 组，并使得观测值到指定的聚类中心的平方的总和最小。
+
+K 均值聚类能处理比层次聚类更大的数据集。另外，观测值不会被永远分到一类中， 当我们提高整体解决方案时，聚类方案
+也会改变。但是，均值的使用意味着所有的变量必须是连续的，并且这个方法很可能被异常值影响。它在非凸聚类情况下，甚至变得更差
+```r
+kmeans(x, centers)
+```
+由于k均值聚类在开始要随机选择k个中心点，在每次调用函数时可能获得不同的方案。使用`set.seed()`函数可以保证结果的可复现
+性。此外，剧烈方法对初始中心值的选择也很敏感
+
+* 参考程序
+```r
+# data 参数用来分析的数据，nc是要考虑的最大聚类个数，seed是一个随机种子
+wssplot <- function(data, nc = 15, seed = 1234){
+    wss <- (nrow(data) - 1) * sum(apply(data, 2, var))
+
+    for (i in 2:nc){
+        set.seed(seed)
+        wss[i] <- sum(kmeans(data, centers = i)$withinss)
+    }
+
+    plot(1:nc, wss, type = "b", xlab = "Number of clusters", ylab  = "within groups sum of squares")
+}
+```
+详见 cluster.R
+
+由于变量值变化过大，所以在聚类前要将其标准化
+
+`aggregate()`函数用于得到原始矩阵的每一类的变量均值
+
+`兰德指数（Rand index）`用于量化类型变量和类之间的协议
+
+```r
+library(flexclust)
+randindex(ct.km)
+```
+
+### 中心点划分
+
