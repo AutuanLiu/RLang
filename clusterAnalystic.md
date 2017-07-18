@@ -14,6 +14,7 @@ info: based on R in Action(2nd editor)
 1. 层次聚类 hierarchical agglomerative clustering
 
 每个观测值自成一类，这些类每次两两合并，直到所有的类被聚成一类为止
+
 算法 | 备注
 --- | ---
 single linkage | 单联动
@@ -25,12 +26,14 @@ Ward |
 2. 划分聚类 partitioning clustering
 
 首先指定类的个数 K，然后观测值被随机分为 K 类，在重新聚合成新的类
+
 算法 | 备注
 --- | ---
 K-means | K 均值算法
 PAM | 围绕中心点划分
 
 ## 聚类分析的步骤
+
 1. 选择合适的变量
 2. 缩放数据
 3. 寻找异常点
@@ -42,6 +45,7 @@ PAM | 围绕中心点划分
 9. 结果可视化
 10. 解读类
 11. 验证结果
+
 ### 缩放数据
 ```r
 df1 <- apply(mydata, 2, function(x){(x - mean(x)/sd(x))})
@@ -77,6 +81,7 @@ pam()
 4. 重复步骤2,3，直到包含所有观测值的类合并成单个的类为止
 
 * 距离的定义
+
 算法 | 备注 | 距离
 --- | ---
 single linkage | 单联动 | 一个类中的点和另一个类中的点的最小距离
@@ -92,6 +97,7 @@ hclust(d, method =)
 # method = "sigle", "complete", "average", "centroid", "ward"
 ```
 * 实现代码
+
 nutrient.R
 KValue.R
 result.R
