@@ -1,5 +1,5 @@
 # 使用 K 均值聚类处理包含178种意大利葡萄酒中的13种化学成分的数据集
-
+# 指出建议的聚类个数
 wssplot <- function(data, nc = 15, seed = 1234){
     wss <- (nrow(data) - 1) * sum(apply(data, 2, var))
 
