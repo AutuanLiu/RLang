@@ -7,3 +7,33 @@
 在时间序列数据的特定背景下，由于级数的动态特性，不同的概念显得特别复杂。
 传统的聚类中通常考虑的不同之处是不能充分利用时间相关的数据，因为它们忽略了值之间的相互依赖关系。
 
+## 时间序列的距离的测量方法
+* 无模型测量
+    1. Minkowski distance
+    2. Frechet distance
+    3. Dynamic time warping distance
+    4. Correlation-based distances
+    5. Autocorrelation-based distances
+    6. Periodogram-based distances
+* 基于模型的测量
+    1. Piccolo distance
+    2. Maharaj distance
+    3. Cepstral-based distance
+* 基于复杂度的测量
+> 两种度量两个时间序列之间复杂性差异的方法
+    1. Permutation distribution clustering 排列分布聚类
+    2. A complexity-invariant dissimilarity measure
+* 基于预测结果的测量
+> 现在，我们关注的是一个新的不同的概念，它是由未来预测的表现来决定的。如果在特定的未来时间，他们的预测是接近的，那么两个时间序列是相似的。显然，基于这种不同概念的聚类过程可能会产生不同于基于模型或基于特征的聚类方法生成的结果。
+
+## 时间序列聚类的工具
+* 基于 p 值的分层聚类算法
+
+一个重要的问题是决定聚类是否必须由基于形状的“或“基于结构的”不相似概念。
+基于形状的不相似性旨在比较该系列的几何轮廓，他们的表现旨在降低问题的维度。
+因此，基于形状的不相似性原则主要由局部比较来支配。
+基于结构的不相似性旨在比较潜在的依赖结构。描述系列全球性能的高级动态结构必须被捕获。
+
+基于形状的不相似性在短时间序列中效果良好，但对于长序列可能失败，特别是当存在大量噪声或异常记录时。
+
+TSclust中包含的基于模型的测量方法只适用于具有固定和线性底层过程的时间序列，而基于预测的测量方法没有线性要求，而是假设滞后一个自回归结构
