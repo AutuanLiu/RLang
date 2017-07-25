@@ -6,3 +6,4 @@ breast <- read.table(url, sep = ",", header = FALSE, na.string = "?")
 names(breast) <- c("ID", "clumpThickness", "sizeUniformity", "shapeUniformity",
  "maginalAdhesion", "singleEpithelialCellSize", "bareNuclei", "blandChromatin",
   "normalNucleoli", "mitosis", "class")
+df 
