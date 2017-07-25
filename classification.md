@@ -13,3 +13,10 @@
 
 通过 rpart,rpart.plot和party包来实现决策树模型及其可视化，通过randomForest包拟合随机森林，通过e1071包构造支持向量机
 # 数据准备
+随机分为训练集与测试集，其中训练集包含499个样本单元，其中良性样本单元329个，恶性160；验证集包含210个样本单元，其中良性129个，
+恶性81个
+
+```r
+loc <- "http:/archive.ics.uci.edu/m1/machine-learning-databases/"
+ds <- "breast-cancer-wisconsin/breast-cancer-wisconsin.data"
+```
