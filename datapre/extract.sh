@@ -18,6 +18,7 @@ for i in $(cat ~/dir.log)
     do
         cd $i
         ls *.hea > ~/head.log
+        cp ~/head.log ~/filename.csv
         for j in $(cat ~/head.log)
             do
                 rdsamp -r $j -pe -pd  -v -c > ${j}.csv
