@@ -18,7 +18,6 @@ for i in $(cat ~/dir.log)
     do
         cd $i
         ls *.hea > ~/head.log
-        cp ~/head.log ~/filename.csv
         for j in $(cat ~/head.log)
             do
                 rdsamp -r $j -pe -pd  -v -c > ${j}.csv
@@ -28,7 +27,7 @@ for i in $(cat ~/dir.log)
 
 # 删除中间文件
 cd ~
-sudo rm dir.log head.log
+sudo rm dir.log
 
 # 执行此脚本的命令： 
 # 切到脚本所放位置
