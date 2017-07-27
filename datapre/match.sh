@@ -5,7 +5,7 @@
 # info: based on Ubuntu Kylin 16.04LTS
 # result： 结果文件存储在～/下的matchID.csv文件中
 
-# 如果matchID.csv和matchABP.csv已经存在，那么就先删除，否侧，将标准错误信息重定向到
+# 如果matchID.csv和matchABP.csv已经存在，那么就先删除，否则，将标准错误信息重定向到
 # /dev/null
 # 因为采用文件追加的方法，所以在每次执行时，必须删除之前的结果
 rm ~/matchID.csv 2> /dev/null
@@ -42,11 +42,11 @@ for i in $(cat ~/dir1.log)
     done
 
 # 由于每个文件夹下可能有多个表，所以必须去除重复信息（重复信息是相邻的）
-cat ~/matchID.csv | uniq > ~/matchID.csv
+cat ~/matchID.csv | uniq > ~/matchID1.csv
 
 # 删除中间文件
 cd ~
-sudo rm dir1.log csv.log heading.log
+sudo rm dir1.log csv.log heading.log matchID.csv
 
 # 执行此脚本的命令： 
 # 切到脚本所放位置
