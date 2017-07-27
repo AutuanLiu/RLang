@@ -4,6 +4,7 @@
 # date： 2017/07/15
 # info: based on Ubuntu Kylin 16.04LTS
 # result：结果保存在与数据对应的文件夹下
+# 如果出现报错信息，请分割文件（出错原因系文件太多，造成溢出）
 
 # 数据路径设置
 dataDir="$HOME/data/MIMICII-submatched-numeric"
