@@ -7,7 +7,7 @@
 # shell 脚本存储路径设置
 # 请保证 3 个 shell 脚本存储在同一个文件夹下
 # 否则，请给对应命令设置存储目录
-dataDir="$HOME/文档/RWork/"
+dataDir="/home/autuanliu/data/Shell"
 cd $dataDir
 
 # 执行数据的提取工作
@@ -18,17 +18,17 @@ bash ./match.sh
 
 # 结果处理
 # .csv 格式
-echo ""
+echo 
 echo "提取出的数据保存在原数据对应的目录下，并以对应的 hea_name.hea.csv 命名"
-echo ""
-echo "所匹配到的数据如所打开的窗口所示: "
+echo 
+echo "所匹配到的数据保存在matchID.csv及matchABP.csv文件 "
 
 # 查看最终的匹配文件
 # 请替换为你已安装的文本查看器命令
 # 或者选择以下的命令之一
 # vim ~/matchID.csv 2> /etc/null
 # gedit ~/matchID.csv 2> /etc/null
-pluma ~/matchID.csv 2> /etc/null
+# pluma ~/matchID.csv 2> /etc/null
 
 # 当匹配项较少时，也可以使用以下命令 
 # cat ~/matchID.csv

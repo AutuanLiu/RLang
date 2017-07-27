@@ -6,7 +6,7 @@
 # result：结果保存在与数据对应的文件夹下
 
 # 数据路径设置
-dataDir="$HOME/文档/My301Work/data/mimic/"
+dataDir="$HOME/data/MIMICII-submatched-numeric"
 cd $dataDir
 
 # 为了简化代码，将log文件默认存储在～/下（家目录）
@@ -18,6 +18,7 @@ for i in $(cat ~/dir.log)
     do
         cd $i
         ls *.hea > ~/head.log
+        ls *.hea >> ~/filename.log
         for j in $(cat ~/head.log)
             do
                 rdsamp -r $j -pe -pd  -v -c > ${j}.csv

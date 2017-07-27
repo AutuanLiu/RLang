@@ -5,8 +5,14 @@
 # info: based on Ubuntu Kylin 16.04LTS
 # result： 结果文件存储在～/下的matchID.csv文件中
 
+# 如果matchID.csv和matchABP.csv已经存在，那么就先删除，否侧，将标准错误信息重定向到
+# /dev/null
+# 因为采用文件追加的方法，所以在每次执行时，必须删除之前的结果
+rm ~/matchID.csv 2> /dev/null
+rm ~/matchABP.csv 2> /dev/null
+
 # 数据路径设置
-dataDir="$HOME/文档/My301Work/data/mimic/"
+dataDir="/home/autuanliu/data/MIMICII-submatched-numeric"
 cd $dataDir
 
 # 为了简化代码，将log文件默认存储在～/下（家目录）
@@ -25,8 +31,9 @@ for i in $(cat ~/dir1.log)
                 # 这里涉及一个模式匹配
                 if cat ~/heading.log | grep "ABPMean" > /dev/null
                     then
-                        # 将满足条件的文件夹名，以追加的方法重定向到matchABP.csv文件 
-                        echo $i >> ~/matchABP.csv
+                        # 将满足条件的文件名，以追加的方法重定向到matchABP.csv文件 
+                        echo $i >> ~/matchID.csv
+                        echo $j >> ~/matchABP.csv
                 else
                         continue
                 fi
@@ -34,16 +41,12 @@ for i in $(cat ~/dir1.log)
         cd ../
     done
 
-# 如果matchID.csv已经存在，那么就先删除，否侧，将标准错误信息重定向到/dev/null
-# 因为采用文件追加的方法，所以在每次执行时，必须删除之前的结果
-rm ~/matchID.csv 2> /dev/null
-
 # 由于每个文件夹下可能有多个表，所以必须去除重复信息（重复信息是相邻的）
-cat ~/matchABP.csv | uniq > ~/matchID.csv
+cat ~/matchID.csv | uniq > ~/matchID.csv
 
 # 删除中间文件
 cd ~
-sudo rm dir1.log csv.log heading.log matchABP.csv
+sudo rm dir1.log csv.log heading.log
 
 # 执行此脚本的命令： 
 # 切到脚本所放位置
