@@ -32,6 +32,17 @@ idx <- function(x){
   return(index)
 }
 
+# 获得 <0 索引
+neidx <- function(x){
+  index <- c()
+  for(i in 1:length(x)){
+    if(x[i] < 0 & !is.na(x[i])){
+      index <- append(index, i)
+    }
+  }
+  return(index)
+}
+
 # 获得含有ABP记录的文件的索引
 getIndex <- function(x, y){
   len <- length(x)
@@ -41,3 +52,4 @@ getIndex <- function(x, y){
   }
   return(index)
 }
+
