@@ -14,7 +14,7 @@ ne.dird <- apply(necsv.table, 2, getDirName)
 ne.dir <- unique(ne.dird)
 
 # 取既是负的又含有ABP的id
-shared.dir <- intersect(dir.table$V1, ne.dir)
+shared.dir <- intersect(dir.table[, 1], ne.dir)
 
 # 要去掉的id
 cut.dir <- setdiff(ne.dir, shared.dir)
@@ -29,5 +29,8 @@ for(i in shared.dir){
     } 
   }
 }
+
+x <- paste("既是负值且ID下含有ABP的文件共有", count, "个")
+print(x)
 
 # 剩余部分还有可能有的是没有ABP的
