@@ -11,7 +11,7 @@
 rm /work/statisticsInfo.log 2> /dev/null
 
 # 数据路径设置
-shellDir="/home/autuanliu/data/Shell"
+shellDir="$HOME/data/Shell"
 storgeDir="/work/resCSV"
 csvDir="/work/csv"
 
