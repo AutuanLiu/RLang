@@ -7,7 +7,7 @@
 setwd("D:/liuWork/R")
 mimic2 <- read.csv("../data/MIMIC-II_firsthos_icu_time.csv", stringsAsFactors = F)
 mimic3 <- read.csv("../data/MIMIC-III_carevue_firsthos_icu_time.csv", stringsAsFactors = F)
-fileName <- read.csv("../data/filename.csv", header = F, stringsAsFactors = F)
+fileName <- read.csv("../data/matchABP.csv", header = F, stringsAsFactors = F)
 
 # 数据提取
 id <- apply(fileName, 2, cut.id)
@@ -46,7 +46,7 @@ for(i in 1:len){
 }
 
 # 得到最终的完整csv文件并保存
-new.table <- cbind(new.info, deltaTime)
-write.csv(new.table, file = "../data/difTime.csv", fileEncoding = "UTF-8")
+new.table <- cbind(fileName[, 1], deltaTime)
+write.csv(new.table, file = "../data/difTime1.csv", fileEncoding = "UTF-8")
 
 

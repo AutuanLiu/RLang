@@ -16,4 +16,4 @@ mat.index <- getIndex(as.numeric(sharedID.table$shared_id), id)
 
 # 匹配结果与存储
 matchABP <- meanABP.table$file.have.ABP[mat.index]
-write.csv(matchABP, "../data/difMatABP.csvget")
+write.csv(matchABP, "../data/difMatABP.csv")
