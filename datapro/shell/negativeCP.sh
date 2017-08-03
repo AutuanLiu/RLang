@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # author： AutuanLiu
-# date： 2017/07/15
+# date： 2017/07/28
 # info: based on Ubuntu Kylin 16.04LTS
 # 解决忽略掉的csv文件问题
 
