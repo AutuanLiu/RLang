@@ -4,6 +4,7 @@
 #####
 
 # 读入数据
+rm(list = ls())
 setwd("D:/liuWork/R")
 library(readr)
 directory <- "../data/tpcs/"
@@ -97,6 +98,11 @@ qq.res <- as.data.frame(combination)
 
 # 保存为文件
 write.csv(qq.res, "../data/qqRes.csv")
+
+
+
+
+
 
 
 
