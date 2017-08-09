@@ -9,7 +9,7 @@ setwd("D:/liuWork/R")
 
 # 操作数据备份,其他变量可以清除，以保证全局环境的整洁，可辨识
 resultb <- result
-# rm(list = ls()[-which(ls() == "resultb")])
+rm(list = ls()[-which(ls() == "resultb")])
 
 # error index 处理
 len2 <- length(resultb)
