@@ -7,7 +7,7 @@
 # 数据路径设置
 shellDir="/home/autuanliu/data/Shell"
 storgeDir="/work/shock"
-csvDir="/work/ppcs"
+csvDir="/work/end"
 
 # 将满足条件的文件复制到指定目录下
 cd $csvDir
