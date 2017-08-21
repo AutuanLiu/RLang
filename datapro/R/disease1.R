@@ -21,10 +21,8 @@ endfile <- read_csv(
 )
 
 shock <- read_csv(
-  "../data/endresult_info.csv",
+  "../data/septic_shock_subset.csv",
   col_types = list(
-    col_integer(),
-    col_integer(),
     col_integer(),
     col_integer()
   )
@@ -32,12 +30,9 @@ shock <- read_csv(
 
 subject1 <- as.numeric(substr(endfile$file.name, 2, 6))
 subject2 <- shock$id
-sharedId1 <- intersect(subject1, subject2)
-index <- c()
-len <- length(sharedId1)
-for(idx in 1:len){
-  index <- append(index, which(subject1 == sharedId1[idx]))
-}
-end.result <- endfile[index, ]
-# save result
-write.csv(end.result, "../data/endresult.csv")
+sharedId <- intersect(subject1, subject2)
+diff <- setdiff(sharedId, sharedId1)
+print("the diff id is: ")
+print(diff)
+
+write.csv(sharedId, "../data/endresult.csv")

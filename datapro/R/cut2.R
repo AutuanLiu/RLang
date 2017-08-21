@@ -3,6 +3,10 @@
 # Date: 2017/08/01
 #####
 
+###
+# 2674的基础上对文件进行截取
+###
+
 # 去掉不满足条件的id
 setwd("D:/liuWork/R")
 com.table <- read.csv("../data/difTime1.csv", stringsAsFactors = F)

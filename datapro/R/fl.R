@@ -18,7 +18,7 @@ for(i in sid){
   ind <- append(ind, which(fl==i))
 }
 
-# 获得多条记录的文件名
+# 获得多天记录的文件名
 
 fname <- finfo$fileName[ind]
 write.csv(fname, "../data/mult.csv")

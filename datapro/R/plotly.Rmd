@@ -1,0 +1,53 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+```{r}
+library(plotly)
+library(crosstalk)
+
+# generally speaking, use a "unique" key for filter, 
+# especially when you have multiple filters!
+tx <- SharedData$new(txhousing)
+gg <- ggplot(tx) + 
+  geom_line(aes(date, median, group = city)) + 
+  ggtitle("A plot with filter events")
+filter <- bscols(
+  filter_select("id", "Select a city", tx, ~city),
+  ggplotly(gg, dynamicTicks = TRUE),
+  widths = c(12, 12)
+)
+
+# generally speaking, use a "primary key" to define the 
+# "unit of interaction" for brush events
+tx2 <- SharedData$new(txhousing, ~city, "Select a city")
+gg <- ggplot(tx2) + 
+  geom_line(aes(date, median, group = city)) +
+  ggtitle("A plot with select events")
+select <- highlight(
+  ggplotly(gg, tooltip = "city"), 
+  selectize = TRUE, persistent = TRUE
+)
+
+bscols(filter, select)
+```
+
