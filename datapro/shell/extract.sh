@@ -5,6 +5,8 @@
 # info: based on Ubuntu Kylin 16.04LTS
 # result：结果保存在与数据对应的文件夹下
 
+# 用于从 MIMIC 的原始数据中提取出可读写的csv文件
+
 # 数据路径设置
 dataDir="$HOME/data/MIMICII-submatched-numeric"
 cd $dataDir

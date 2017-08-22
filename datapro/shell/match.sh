@@ -5,6 +5,8 @@
 # info: based on Ubuntu Kylin 16.04LTS
 # result： 结果文件存储在～/下的matchID.csv文件中
 
+# 用于匹配表头含有ABPMean的患者ID和文件名
+
 # 如果matchID.csv和matchABP.csv已经存在，那么就先删除，否则，将标准错误信息重定向到
 # /dev/null
 # 因为采用文件追加的方法，所以在每次执行时，必须删除之前的结果

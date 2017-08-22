@@ -4,6 +4,8 @@
 # date： 2017/07/15
 # info: based on Ubuntu Kylin 16.04LTS
 
+# 解析并匹配文件 
+
 # shell 脚本存储路径设置
 # 请保证 3 个 shell 脚本存储在同一个文件夹下
 # 否则，请给对应命令设置存储目录

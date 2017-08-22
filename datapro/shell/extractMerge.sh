@@ -3,7 +3,7 @@
 # author： AutuanLiu
 # date： 2017/07/15
 # info: based on Ubuntu Kylin 16.04LTS
-# result：结果保存在与数据对应的文件夹下
+# result：所有的csv文件整合在一个文件夹下
 
 # 数据路径设置
 dataDir="$HOME/data/MIMICII-submatched-numeric"

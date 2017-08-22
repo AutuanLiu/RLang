@@ -3,6 +3,7 @@
 # author： AutuanLiu
 # date： 2017/08/01
 # info: based on Ubuntu Kylin 16.04LTS
+# 提取csv文件的2-5列
 
 # 数据路径设置
 shellDir="$HOME/data/Shell"

@@ -4,6 +4,7 @@
 # date： 2017/08/01
 # info: based on Ubuntu Kylin 16.04LTS
 
+# 获取文件的长度
 # 由于采用追加的方式，所以运行前必须删除之前的文件
 rm /work/csvLength.csv
 
