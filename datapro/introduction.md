@@ -1,6 +1,6 @@
 ```
 author: AutuanLiu
-date: 2017/07/15
+date: 2017/08/22
 info: based on Ubuntu Kylin 16.04LTS
 ```
 **此文档为归类总结文档，具体说明代码是干什么用的**
